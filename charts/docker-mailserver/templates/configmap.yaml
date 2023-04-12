@@ -1,4 +1,4 @@
-{{/* This whole template is only necessary if we've enabled creation of the configmap (default true) */}}
+{{- /* This whole template is only necessary if we've enabled creation of the configmap (default true) */}}
 {{- if not .Values.configMap.useExisting -}}
 ---
 apiVersion: "v1"
@@ -11,7 +11,7 @@ metadata:
     release: "{{ .Release.Name }}"
   name: {{ template "dockermailserver.fullname" . }}-configs
 data:
-  {{/* Use sample data if user is running in demo mode */}}
+  {{- /* Use sample data if user is running in demo mode */}}
   {{- if .Values.demoMode.enabled -}}
   ### We are in demo mode, so add in some sample data for quick testing
   postfix-accounts.cf: |
@@ -26,14 +26,14 @@ data:
   ### End demo mode data
   {{- else }}
   postfix-main.cf: |
-    {{/* Enable proxy protocol for postscreen / dovecot */}}
+    {{- /* Enable proxy protocol for postscreen / dovecot */}}
     {{- if .Values.haproxy.enabled }}  # Necessary to permit proxy protocol from haproxy to postscreen
-      postscreen_upstream_proxy_protocol = haproxy
+    postscreen_upstream_proxy_protocol = haproxy
     {{- end }}
     {{- if not .Values.spfTestsDisabled }}
-      smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination, reject_unauth_pipelining, reject_invalid_helo_hostname, reject_non_fqdn_helo_hostname, reject_unknown_recipient_domain, reject_rbl_client zen.spamhaus.org, reject_rbl_client bl.spamcop.net{{ range .Values.rblRejectDomains }}, reject_rbl_client {{ . }}{{ end }}
+    smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination, reject_unauth_pipelining, reject_invalid_helo_hostname, reject_non_fqdn_helo_hostname, reject_unknown_recipient_domain, reject_rbl_client zen.spamhaus.org, reject_rbl_client bl.spamcop.net{{ range .Values.rblRejectDomains }}, reject_rbl_client {{ . }}{{ end }}
     {{- end }}
-  {{/* Use real data from "config" subdirectory if user is _not_ running in demo mode */}}
+  {{- /* Use real data from "config" subdirectory if user is _not_ running in demo mode */}}
   {{- (.Files.Glob "config/*.cf").AsConfig | nindent 2 }}
   {{- (.Files.Glob "config/opendkim/TrustedHosts").AsConfig | nindent 2 }}
   {{- (.Files.Glob "config/opendkim/SigningTable").AsConfig | nindent 2 }}
