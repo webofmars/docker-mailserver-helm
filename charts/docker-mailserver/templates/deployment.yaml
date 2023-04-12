@@ -84,7 +84,7 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
-          {{- if eq .Values.pod.dockermailserver.enable_fail2ban 1.0 }}
+          {{- if ne .Values.pod.dockermailserver.enable_fail2ban "0" }}
             capabilities:
               add:
                 - "NET_ADMIN"
