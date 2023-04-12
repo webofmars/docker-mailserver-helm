@@ -6,6 +6,37 @@ entries:
         - Breaking : Standardized app labels to app.kubernetes.io/name for Istio workload/Cilium compatibility
     apiVersion: v2
     appVersion: 11.0.0
+    created: "2023-04-12T10:20:47.426108646Z"
+    dependencies:
+    - alias: haproxy
+      condition: haproxy.enabled
+      name: kubernetes-ingress
+      repository: https://haproxytech.github.io/helm-charts
+      version: 1.21.1
+    description: A fullstack but simple mailserver (smtp, imap, antispam, antivirus, ssl...) using Docker.
+    digest: 2a7245b4f00fa233660de7d040cfcb31c347d305b4a08daadbfb3881114578de
+    home: https://github.com/webofmars/helm-docker-mailserver
+    icon: https://avatars.githubusercontent.com/u/76868633?s=400&v=4
+    keywords:
+    - mailserver
+    - postfix
+    - dovecot
+    - amavis
+    - imap
+    maintainers:
+    - email: contact@webofmars.com
+      name: webofmars
+    name: docker-mailserver
+    sources:
+    - https://github.com/docker-mailserver/docker-mailserver-helm
+    urls:
+    - https://github.com/webofmars/docker-mailserver-helm/releases/download/docker-mailserver-2.0.3/docker-mailserver-2.0.3.tgz
+    version: 2.0.3
+  - annotations:
+      artifacthub.io/changes: |
+        - Breaking : Standardized app labels to app.kubernetes.io/name for Istio workload/Cilium compatibility
+    apiVersion: v2
+    appVersion: 11.0.0
     created: "2023-04-12T10:05:25.96549729Z"
     dependencies:
     - alias: haproxy
