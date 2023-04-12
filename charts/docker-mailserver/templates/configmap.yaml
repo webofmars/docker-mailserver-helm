@@ -12,7 +12,7 @@ metadata:
   name: {{ template "dockermailserver.fullname" . }}-configs
 data:
   {{- /* Use sample data if user is running in demo mode */}}
-  {{- if .Values.demoMode.enabled -}}
+  {{- if .Values.demoMode.enabled }}
   ### We are in demo mode, so add in some sample data for quick testing
   postfix-accounts.cf: |
     # A sample user - the password is "password"

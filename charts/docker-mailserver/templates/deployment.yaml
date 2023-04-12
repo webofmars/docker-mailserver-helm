@@ -72,9 +72,9 @@ spec:
             - name: config
               mountPath: /tmp/docker-mailserver/
           resources:
-            {{ toYaml .Values.initContainer.resources | indent 12 }}
+            {{- toYaml .Values.initContainer.resources | nindent 12 }}
           securityContext:
-            {{ toYaml .Values.initContainer.containerSecurityContext | indent 12 }}
+            {{- toYaml .Values.initContainer.containerSecurityContext | nindent 12 }}
       containers:
         - name: dockermailserver
           env:
@@ -82,14 +82,14 @@ spec:
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
-            {{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
           {{- if eq .Values.pod.dockermailserver.enable_fail2ban 1.0 }}
             capabilities:
               add:
                 - "NET_ADMIN"
           {{- end }}
-          {{ toYaml .Values.pod.dockermailserver.containerSecurityContext | indent 12 }}
+          {{- toYaml .Values.pod.dockermailserver.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: config
               mountPath: /tmp/docker-mailserver
@@ -153,7 +153,7 @@ spec:
             {{- end }}
             {{- end }}
             {{- if .Values.additionalVolumeMounts }}
-            {{ toYaml .Values.additionalVolumeMounts | indent 12 }}
+            {{- toYaml .Values.additionalVolumeMounts | nindent 12 }}
             {{- end }}
           livenessProbe:
             exec:

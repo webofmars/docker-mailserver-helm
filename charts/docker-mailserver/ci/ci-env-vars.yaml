@@ -1,87 +1,87 @@
 pod.dockermailserver:
   account_provisioner: LDAP
-  default_relay_host: ""
-  dms_debug: "0"
-  dovecot_auth_bind: ""
-  dovecot_default_pass_scheme: ""
+  default_relay_host: ''
+  dms_debug: '0'
+  dovecot_auth_bind: ''
+  dovecot_default_pass_scheme: ''
   dovecot_ldap_version: 3
-  dovecot_mailbox_format: ""
-  dovecot_pass_attrs: ""
-  dovecot_pass_filter: ""
-  dovecot_tls: "1"
-  dovecot_user_attrs: ""
-  dovecot_user_filter: ""
-  enable_clamav: "0"
-  enable_fail2ban: "0"
-  enable_fetchmail: "0"
-  enable_ldap: "0"
-  enable_managesieve: ""
-  enable_pop3: "1"
-  enable_postfix_virtual_transport: ""
-  enable_postgrey: "0"
-  enable_saslauthd: "0"
-  enable_spamassassin: "0"
-  enable_srs: "0"
-  enable_update_check: "0"
-  fail2ban_blocktype: ""
+  dovecot_mailbox_format: ''
+  dovecot_pass_attrs: ''
+  dovecot_pass_filter: ''
+  dovecot_tls: '1'
+  dovecot_user_attrs: ''
+  dovecot_user_filter: ''
+  enable_clamav: '0'
+  enable_fail2ban: '0'
+  enable_fetchmail: '0'
+  enable_ldap: '0'
+  enable_managesieve: ''
+  enable_pop3: '1'
+  enable_postfix_virtual_transport: ''
+  enable_postgrey: '0'
+  enable_saslauthd: '0'
+  enable_spamassassin: '0'
+  enable_srs: '0'
+  enable_update_check: '0'
+  fail2ban_blocktype: ''
   fetchmail_poll: 150
-  ldap_bind_dn: "cn=admin,dc=mx,dc=example,dc=com"
-  ldap_bind_pw: "admin"
-  ldap_query_filter_alias: "(|)"
-  ldap_query_filter_domain: "(mail=*@%s)"
-  ldap_query_filter_group: "(|)"
-  ldap_query_filter_senders: "(|(mail=%s)(mail=admin@*))"
-  ldap_query_filter_user: "(mail=%s)"
-  ldap_search_base: ldap://ldap:389
-  ldap_server_host: "ldap"
-  ldap_start_tls: "no"
-  log_level: "info"
-  one_dir: "0"
-  override_hostname: mail.example.com
-  permit_docker: ""
-  pflogsumm_recipient: ""
-  pflogsumm_trigger: ""
-  postfix_dagent: ""
-  postfix_mailbox_size_limit: ""
-  postfix_message_size_limit: ""
-  postgrey_auto_whitelist_clients: "5"
-  postgrey_delay: "150"
-  postgrey_max_age: "35"
-  postgrey_text: "delayed by  postgrey"
-  postmaster_address: "postmaster@example.com"
-  postscreen_action: "enforce"
-  relay_host: ""
-  relay_password: ""
-  relay_port: "25"
-  relay_user: ""
-  report_interval: "daily"
-  report_recipient: "0"
-  report_sender: ""
+  ldap_bind_dn: 'cn=admin,dc=mx,dc=example,dc=com'
+  ldap_bind_pw: 'admin'
+  ldap_query_filter_alias: '(|)'
+  ldap_query_filter_domain: '(mail=*@%s)'
+  ldap_query_filter_group: '(|)'
+  ldap_query_filter_senders: '(|(mail=%s)(mail=admin@*))'
+  ldap_query_filter_user: '(mail=%s)'
+  ldap_search_base: 'ldap://ldap:389'
+  ldap_server_host: 'ldap'
+  ldap_start_tls: 'no'
+  log_level: 'info'
+  one_dir: '0'
+  override_hostname: 'mail.example.com'
+  permit_docker: ''
+  pflogsumm_recipient: ''
+  pflogsumm_trigger: ''
+  postfix_dagent: ''
+  postfix_mailbox_size_limit: ''
+  postfix_message_size_limit: ''
+  postgrey_auto_whitelist_clients: '5'
+  postgrey_delay: '150'
+  postgrey_max_age: '35'
+  postgrey_text: 'delayed by  postgrey'
+  postmaster_address: 'postmaster@example.com'
+  postscreen_action: 'enforce'
+  relay_host: ''
+  relay_password: ''
+  relay_port: '25'
+  relay_user: ''
+  report_interval: 'daily'
+  report_recipient: '0'
+  report_sender: ''
   sa_kill: 6.31
-  sa_move_spam_to_junk: "0"
-  sa_spam_subject: "*** SPAM ***"
-  sa_spam_to_inbox: "0"
+  sa_move_spam_to_junk: '0'
+  sa_spam_subject: '*** SPAM ***'
+  sa_spam_to_inbox: '0'
   sa_tag: 2.0
   sa_tag2: 6.31
-  sasl_passwd: ""
-  saslauthd_ldap_bind_dn: ""
-  saslauthd_ldap_filter: ""
-  saslauthd_ldap_password: ""
-  saslauthd_ldap_search_base: ""
-  saslauthd_ldap_server: ""
-  saslauthd_ldap_ssl: ""
-  saslauthd_mech_options: ""
-  saslauthd_mechanisms: ""
-  smtp_only: "0"
-  spoof_protection: ""
-  srs_domainname: ""
-  srs_exclude_domains: ""
-  srs_secret: ""
+  sasl_passwd: ''
+  saslauthd_ldap_bind_dn: ''
+  saslauthd_ldap_filter: ''
+  saslauthd_ldap_password: ''
+  saslauthd_ldap_search_base: ''
+  saslauthd_ldap_server: ''
+  saslauthd_ldap_ssl: ''
+  saslauthd_mech_options: ''
+  saslauthd_mechanisms: ''
+  smtp_only: '0'
+  spoof_protection: ''
+  srs_domainname: ''
+  srs_exclude_domains: ''
+  srs_secret: ''
   ssl_cert_path: /tmp/ssl/tls.crt
   ssl_key_path: /tmp/ssl/tls.key
   ssl_type: "letsencrypt"
-  tls_level: ""
-  virusmails_delete_delay: ""
+  tls_level: ''
+  virusmails_delete_delay: ''
 
 image:
   tag: 8.0.1
