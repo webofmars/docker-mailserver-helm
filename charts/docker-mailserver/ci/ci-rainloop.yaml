@@ -3,4 +3,4 @@ rainloop:
   enabled: true
 
 service:
-  type: ClusterIP  
+  type: ClusterIP

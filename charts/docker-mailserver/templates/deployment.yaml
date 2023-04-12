@@ -8,10 +8,10 @@ metadata:
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
   name: {{ template "dockermailserver.fullname" . }}
-{{- if .Values.deployment.annotations }}
+  {{- if .Values.deployment.annotations }}
   annotations:
-{{ toYaml .Values.deployment.annotations | indent 4 }}
-{{ end }}
+    {{ toYaml .Values.deployment.annotations | indent 4 }}
+  {{ end }}
 spec:
   replicas: {{ default 2 .Values.deployment.replicas }}
   selector:
@@ -24,16 +24,16 @@ spec:
       labels:
         app.kubernetes.io/name: {{ template "dockermailserver.fullname" . }}
         release: "{{ .Release.Name }}"
-        {{- if .Values.pod.dockermailserver.annotations }}
+      {{- if .Values.pod.dockermailserver.annotations }}
       annotations:
-{{ toYaml .Values.pod.dockermailserver.annotations | indent 8 }}
-        {{ end }}
+        {{ toYaml .Values.pod.dockermailserver.annotations | indent 8 }}
+      {{- end }}
     spec:
       runtimeClassName: {{ .Values.runtimeClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
       serviceAccountName: {{ template "dockermailserver.serviceAccountName" . }}
       securityContext:
-{{ toYaml .Values.securityContext | indent 8 }}
+        {{ toYaml .Values.securityContext | indent 8 }}
       volumes:
         - name: "data"
           persistentVolumeClaim:
@@ -46,18 +46,18 @@ spec:
         - name: "opendkim-keys"
           secret:
             secretName: {{ template "dockermailserver.fullname" . }}-secrets
-{{ if .Values.pod.dockermailserver.ssl_type }}
+        {{- if .Values.pod.dockermailserver.ssl_type }}
         - name: "ssl-cert"
           secret:
-{{ if .Values.ssl.useExisting }}
+            {{- if .Values.ssl.useExisting }}
             secretName: {{ .Values.ssl.existingName }}
-{{- else }}
+            {{- else }}
             secretName: {{ template "dockermailserver.fullname" . }}-tls
-{{- end }}
-{{- end }}
-{{ if .Values.additionalVolumes }}
-{{- toYaml .Values.additionalVolumes | indent 8 }}
-{{- end }}
+            {{- end }}
+        {{- end }}
+        {{- if .Values.additionalVolumes }}
+          {{ toYaml .Values.additionalVolumes | indent 8 }}
+        {{- end }}
         - name: tmp
           emptyDir: {}
       initContainers:
@@ -72,37 +72,37 @@ spec:
             - name: config
               mountPath: /tmp/docker-mailserver/
           resources:
-{{ toYaml .Values.initContainer.resources | indent 12 }}
+            {{ toYaml .Values.initContainer.resources | indent 12 }}
           securityContext:
-{{ toYaml .Values.initContainer.containerSecurityContext | indent 12 }}
+            {{ toYaml .Values.initContainer.containerSecurityContext | indent 12 }}
       containers:
         - name: dockermailserver
           env:
-{{- include "dockermailserver.upstream-env-variables" . | nindent 10 }}
+            {{- include "dockermailserver.upstream-env-variables" . | nindent 10 }}
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
-{{ toYaml .Values.resources | indent 12 }}
-            {{- if eq .Values.pod.dockermailserver.enable_fail2ban 1.0 }}
+            {{ toYaml .Values.resources | indent 12 }}
+          securityContext:
+          {{- if eq .Values.pod.dockermailserver.enable_fail2ban 1.0 }}
             capabilities:
               add:
                 - "NET_ADMIN"
-            {{ end }}
-          securityContext:
-{{ toYaml .Values.pod.dockermailserver.containerSecurityContext | indent 12 }}
+          {{- end }}
+          {{ toYaml .Values.pod.dockermailserver.containerSecurityContext | indent 12 }}
           volumeMounts:
             - name: config
               mountPath: /tmp/docker-mailserver
-{{ if .Values.pod.dockermailserver.ssl_type }}
+            {{- if .Values.pod.dockermailserver.ssl_type }}
             - name: ssl-cert
               mountPath: /tmp/ssl
               readOnly: true
-{{- end }}
+            {{- end }}
             - name: tmp
               mountPath: /var/tmp
             - name: data
               mountPath: /var/mail
-              subPath: mail      
+              subPath: mail
             - name: data
               mountPath: /var/mail-state
               subPath: mail-state
@@ -135,43 +135,42 @@ spec:
               subPath: 91-override-sieve.conf
               mountPath: /etc/dovecot/conf.d/91-override-sieve.conf
               readOnly: true
-            {{ end }}
-              {{- if .Values.demoMode.enabled }}
+            {{- end }}
+            {{- if .Values.demoMode.enabled }}
             - name: opendkim-keys
               mountPath: "/tmp/docker-mailserver/opendkim/keys/example.com/mail.private"
               subPath: "example.com-mail.private"
               readOnly: true
-              {{- else -}}
-              {{/* Mount a dkim key for every domain configured */}}
-              {{- range .Values.domains }}
-              {{- $path := printf "/tmp/docker-mailserver/opendkim/keys/%s/mail.private" . }}
-              {{- $name := printf "%s-mail.private" . }}
+            {{- else -}}
+            {{- /* Mount a dkim key for every domain configured */}}
+            {{- range .Values.domains }}
+            {{- $path := printf "/tmp/docker-mailserver/opendkim/keys/%s/mail.private" . }}
+            {{- $name := printf "%s-mail.private" . }}
             - name: opendkim-keys
               mountPath: {{ $path }}
               subPath: {{ $name }}
               readOnly: true
-              {{- end }}
-              {{- end }}
-{{ if .Values.additionalVolumeMounts }}
-{{ toYaml .Values.additionalVolumeMounts | indent 12 }}
-{{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.additionalVolumeMounts }}
+            {{ toYaml .Values.additionalVolumeMounts | indent 12 }}
+            {{- end }}
           livenessProbe:
             exec:
-               command:
-                 - /bin/bash
-                 - -c
-                 - supervisorctl status | grep -E "amavis|clamav|cron|dovecot|mailserver|opendkim|opendmarc|postfix|rsyslog" | grep RUNNING
+              command:
+              - /bin/bash
+              - -c
+              - supervisorctl status | grep -E "amavis|clamav|cron|dovecot|mailserver|opendkim|opendmarc|postfix|rsyslog" | grep RUNNING
             initialDelaySeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
           readinessProbe:
             exec:
-               command:
-                 - /bin/bash
-                 - -c
-                 - supervisorctl status | grep -E "mailserver|postfix" | grep RUNNING
+              command:
+              - /bin/bash
+              - -c
+              - supervisorctl status | grep -E "mailserver|postfix" | grep RUNNING
             initialDelaySeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
       restartPolicy: "Always"
-

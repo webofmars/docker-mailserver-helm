@@ -3,10 +3,16 @@ There are a _lot_ of upstream env variables used to customize docker-mailserver.
 We list them here (and include this template in deployment.yaml) to keep deployment.yaml neater
 */}}
 {{- define "dockermailserver.upstream-env-variables" -}}
+- name: ACCOUNT_PROVISIONER
+  value: {{ .Values.pod.dockermailserver.account_provisioner | quote }}
+- name: ENABLE_UPDATE_CHECK
+  value: {{ .Values.pod.dockermailserver.enable_update_check | quote }}
+- name: FAIL2BAN_BLOCKTYPE
+  value: {{ .Values.pod.dockermailserver.fail2ban_blocktype | quote }}
 - name: OVERRIDE_HOSTNAME
   value: {{ .Values.pod.dockermailserver.override_hostname | quote }}
 - name: DMS_DEBUG
-  value: {{ .Values.pod.dockermailserver.dms_debug | quote }}              
+  value: {{ .Values.pod.dockermailserver.dms_debug | quote }}
 - name: ENABLE_CLAMAV
   value: {{ .Values.pod.dockermailserver.enable_clamav | quote }}
 - name: ONE_DIR
@@ -20,9 +26,9 @@ We list them here (and include this template in deployment.yaml) to keep deploym
 - name: SSL_TYPE
   value: {{ .Values.pod.dockermailserver.ssl_type | quote }}
 - name: SSL_CERT_PATH
-  value: {{ default "/tmp/ssl/tls.crt" .Values.pod.dockermailserver.ssl_cert_path | quote }}   
+  value: {{ default "/tmp/ssl/tls.crt" .Values.pod.dockermailserver.ssl_cert_path | quote }}
 - name: SSL_KEY_PATH
-  value: {{ default "/tmp/ssl/tls.key" .Values.pod.dockermailserver.ssl_key_path | quote }}                            
+  value: {{ default "/tmp/ssl/tls.key" .Values.pod.dockermailserver.ssl_key_path | quote }}
 - name: TLS_LEVEL
   value: {{ .Values.pod.dockermailserver.tls_level | quote }}
 - name: SPOOF_PROTECTION
@@ -91,6 +97,8 @@ We list them here (and include this template in deployment.yaml) to keep deploym
   value: {{ .Values.pod.dockermailserver.ldap_query_filter_alias | quote }}
 - name: LDAP_QUERY_FILTER_DOMAIN
   value: {{ .Values.pod.dockermailserver.ldap_query_filter_domain | quote }}
+- name: LDAP_QUERY_FILTER_SENDERS
+  value: {{ .Values.pod.dockermailserver.ldap_query_filter_senders | quote }}
 - name: LOG_LEVEL
   value: {{ .Values.pod.dockermailserver.log_level | quote }}
 - name: DOVECOT_TLS
@@ -161,4 +169,8 @@ We list them here (and include this template in deployment.yaml) to keep deploym
   value: {{ .Values.pod.dockermailserver.pflogsumm_trigger | quote }}
 - name: PFLOGSUMM_RECIPIENT
   value: {{ .Values.pod.dockermailserver.pflogsumm_recipient | quote }}
+{{- range $key, $value := .Values.pod.dockermailserver.extraEnv }}
+- name: {{ $key }}
+  value: {{ $value | quote }}
+{{- end }}
 {{- end -}}
