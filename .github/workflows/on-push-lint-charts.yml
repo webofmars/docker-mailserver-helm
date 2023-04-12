@@ -7,15 +7,15 @@ on:
   #     - '.github/**'
   pull_request:
     paths:
-      - 'charts/**'   
-      - '.github/**'        
+      - 'charts/**'
+      - '.github/**'
   workflow_dispatch:
 
 env:
   KUBE_SCORE_VERSION: 1.12.0
   HELM_VERSION: v3.4.1
 
-concurrency: 
+concurrency:
   group: ${{ github.head_ref }}
   cancel-in-progress: true
 
