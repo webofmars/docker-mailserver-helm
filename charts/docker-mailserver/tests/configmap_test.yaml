@@ -9,13 +9,13 @@ tests:
     asserts:
       - matchRegex:
           path: data.fail2ban-fail2ban\.cf
-          pattern: "dbpurgeage"        
+          pattern: "dbpurgeage"
 
 
   - it: should configure imaps port 10993 for rainloop if enabled (and haproxy enabled)
     set:
       rainloop.enabled: true
-      haproxy.enabled: true      
+      haproxy.enabled: true
     asserts:
       - matchRegex:
           path: data.dovecot\.cf
@@ -23,4 +23,4 @@ tests:
 
   - it: manifest should match snapshot
     asserts:
-      - matchSnapshot: {}          
+      - matchSnapshot: {}

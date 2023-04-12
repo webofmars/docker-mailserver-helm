@@ -3,7 +3,7 @@ suite: pvc-rainloop
 templates:
   - pvc-rainloop.yaml
 tests:
-  
+
   - it: should apply annotations from persistence.annotations
     set:
       rainloop.persistence.annotations.backup\.banana\.io/deltas: pancakes
@@ -26,8 +26,8 @@ tests:
       rainloop.enabled: false
     asserts:
       - hasDocuments:
-          count: 0          
+          count: 0
 
   - it: manifest should match snapshot
     asserts:
-      - matchSnapshot: {}    
+      - matchSnapshot: {}

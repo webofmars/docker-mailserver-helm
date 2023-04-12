@@ -1,5 +1,5 @@
 {{/* This whole template is only necessary if we're using rainloop */}}
-{{- if .Values.rainloop.enabled -}}  
+{{- if .Values.rainloop.enabled -}}
 {{- if not .Values.rainloop.persistence.existingClaim -}}
 ---
 kind: "PersistentVolumeClaim"
@@ -13,8 +13,8 @@ metadata:
     volume.alpha.kubernetes.io/storage-class: "generic"
   {{- end }}
   {{- if .Values.rainloop.persistence.annotations }}
-  {{ toYaml .Values.rainloop.persistence.annotations | indent 2 }}  
-  {{ end }}  
+  {{ toYaml .Values.rainloop.persistence.annotations | indent 2 }}
+  {{ end }}
 spec:
   accessModes:
     - {{ default "ReadWriteOnce" .Values.rainloop.persistence.accessMode | quote }}

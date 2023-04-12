@@ -1,5 +1,5 @@
 {{/* This whole template is only necessary if we're using rainloop */}}
-{{ if .Values.rainloop.enabled -}}  
+{{ if .Values.rainloop.enabled -}}
 ---
 apiVersion: "apps/v1"
 kind: "Deployment"
@@ -24,8 +24,8 @@ spec:
         release: "{{ .Release.Name }}"
         {{- if .Values.rainloop.annotations }}
       annotations:
-{{ toYaml .Values.rainloop.annotations | indent 8 }}  
-        {{ end }}          
+{{ toYaml .Values.rainloop.annotations | indent 8 }}
+        {{ end }}
     spec:
       serviceAccountName: {{ template "dockermailserver.rainloop.serviceAccountName" . }}
       containers:

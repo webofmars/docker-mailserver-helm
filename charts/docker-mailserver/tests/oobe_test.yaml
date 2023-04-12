@@ -19,7 +19,7 @@ tests:
           pattern: mail._domainkey.example.com example.com:mail:/etc/opendkim/keys/example.com/mail.private
       - matchRegex:
           path: data.TrustedHosts
-          pattern: 127.0.0.1   
+          pattern: 127.0.0.1
 
   - it: should correctly configure secrets if demo mode is enabled
     asserts:
@@ -44,10 +44,10 @@ tests:
           pattern: haproxy
       - matchRegex:
           path: data.dovecot\.cf
-          pattern: haproxy             
+          pattern: haproxy
 
   - it: should configure imaps port 10993 for rainloop if enabled (and haproxy enabled)
-    set:   
+    set:
     asserts:
       - matchRegex:
           path: data.dovecot\.cf
@@ -55,4 +55,4 @@ tests:
 
   - it: manifest should match snapshot
     asserts:
-      - matchSnapshot: {}              
+      - matchSnapshot: {}

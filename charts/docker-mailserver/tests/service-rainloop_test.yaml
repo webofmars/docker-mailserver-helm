@@ -8,15 +8,15 @@ tests:
       rainloop.enabled: true
     asserts:
       - hasDocuments:
-          count: 1     
+          count: 1
 
   - it: should not create rainloop service if disabled
     set:
       rainloop.enabled: false
     asserts:
       - hasDocuments:
-          count: 0 
+          count: 0
 
   - it: manifest should match snapshot
     asserts:
-      - matchSnapshot: {}            
+      - matchSnapshot: {}

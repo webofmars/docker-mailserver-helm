@@ -1,18 +1,16 @@
 # How this chart is tested
 
-# Automated tests
+## Automated tests
 
 Every pull request to the master branch trigger the following tests:
 
 * ct lint
 * ct install
 
-
 [![Linting](https://github.com/funkypenguin/helm-docker-mailserver/workflows/Linting/badge.svg)](.github/workflows/on-pr-lint-charts.yml)
 [![Testing](https://github.com/funkypenguin/helm-docker-mailserver/workflows/Testing/badge.svg)](.github/workflows/on-pr-test-charts.yml)
 
-
-# Local testing
+## Local testing
 
 If you're submitting a PR, and you want to ensure your changes will pass automated testing (above), here are your options:
 
@@ -27,21 +25,18 @@ To run in Docker:
 
 To run locally:
 
-1. Have ct installed (Get a binary package from https://github.com/helm/chart-testing/releases)
+1. Have ct installed (Get a binary package from <https://github.com/helm/chart-testing/releases>)
 2. Run `ct lint --config=.ci/ct-config.yaml`
 
 ## Deployment testing
 
 *ct* can also test a chart by deploying it to a temporary namespace in a Kubernetes cluster, and waiting for indications that the deployment has been successful. This is a good way to test how the deployment behaves "for real".
 
-
-
-
-ct lint --config=.ci/ct-config.yaml
+`ct lint --config=.ci/ct-config.yaml`
 
 Create a KinD cluster, by running `kind create cluster`:
 
-```
+```sh
 ❯ kind create cluster
 Creating cluster "kind" ...
  ✓ Ensuring node image (kindest/node:v1.17.0) 🖼

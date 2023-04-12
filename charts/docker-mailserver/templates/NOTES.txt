@@ -40,7 +40,7 @@
 
 You've successfully launched docker-mailserver helm chart!
 
-{{- if .Values.demoMode.enabled -}}  
+{{- if .Values.demoMode.enabled -}}
 
 But wait, dear reader. You're still running in DEMO MODE.
 
@@ -66,7 +66,7 @@ NOTE: The above step is mandatory if you disable demo mode. Without valid DKIM k
 You're not in demo mode! Assuming all has gone well, execute the commands below to retrieve the TXT records
 to add to your DNS zones, to finish setting up DKIM:
 {{/* Mount a dkim key for every domain configured */}}
----               
+---
 {{ range .Values.domains }}
 {{- $path := printf "cat config/opendkim/keys/%s/mail.txt" . }}
     {{ $path }}
@@ -74,8 +74,8 @@ to add to your DNS zones, to finish setting up DKIM:
 ---
 {{ end }}
 
-{{ if .Values.haproxy.enabled -}}  
-{{ if .Values.poorMansK8sLb.enabled -}} 
+{{ if .Values.haproxy.enabled -}}
+{{ if .Values.poorMansK8sLb.enabled -}}
 
 -------
 You're running with HAProxy enabled, and poor-mans-k8s-lb turned on. Provided you've correctly setup your 
@@ -109,7 +109,7 @@ to the internet. You may be running in host mode, or nodeport mode, or some othe
 
 {{- if .Values.rainloop.enabled -}}
 {{- if .Values.rainloop.ingress.enabled -}}
-{{ if .Values.haproxy.enabled -}}  
+{{ if .Values.haproxy.enabled -}}
 ---
 You've enabled RainLoop integration. Because you're using HAProxy, you'll need to configure RainLoop
 to use an IMAPS server of {{ template "dockermailserver.fullname" . }} on port 10993 (with SSL), since port 993

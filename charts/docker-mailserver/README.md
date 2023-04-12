@@ -11,27 +11,29 @@ Kubernetes](https://github.com/docker-mailserver/docker-mailserver/wiki/Using-in
 
 ## Contents
 
-- [Contents](#contents)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Architecture](#architecture)
-- [Getting Started](#getting-started)
-  - [Install Helm](#1-install-helm)
-  - [Install Cert-manager](#2-install-cert-manager)
-  - [Install Docker Mailserver](#install-docker-mailserver)
-- [Configuration and Operation](#configuration-and-operation)
-  - [Download setup.sh](#download-setupsh)
-  - [Create / Update / Delete users](#create--update--delete-users)
-  - [Setup OpenDKIM](#setup-opendkim)
-  - [Setup RainLoop](#setup-rainloop)
-  - [Configuration](#docker-mailserver-configuration)
-    - [Minimal configuration](#minimal-configuration)
-    - [Chart Configuration](#chart-configuration)
-    - [docker-mailserver Configuration](#docker-mailserver-configuration)
-    - [Rainloop Configuration](#rainloop-configuration)
-    - [HA Proxy-Ingress Configuration](#ha-proxy-ingress-configuration)
-- [Development](#development)
-  - [Testing](#testing)
+- [docker-mailserver-helm](#docker-mailserver-helm)
+  - [Contents](#contents)
+  - [Features](#features)
+  - [Prerequisites](#prerequisites)
+  - [Architecture](#architecture)
+  - [Getting Started](#getting-started)
+    - [1. Install helm](#1-install-helm)
+    - [2. Install cert-manager](#2-install-cert-manager)
+    - [Install docker-mailserver](#install-docker-mailserver)
+  - [Configuration and Operation](#configuration-and-operation)
+    - [Install](#install)
+    - [Download setup.sh](#download-setupsh)
+    - [Create / Update / Delete users](#create--update--delete-users)
+    - [Setup OpenDKIM](#setup-opendkim)
+    - [Setup RainLoop](#setup-rainloop)
+    - [Docker Mailserver Configuration](#docker-mailserver-configuration)
+      - [Minimal configuration](#minimal-configuration)
+      - [Chart Configuration](#chart-configuration)
+      - [docker-mailserver Configuration](#docker-mailserver-configuration-1)
+      - [Rainloop Configuration](#rainloop-configuration)
+      - [HA Proxy-Ingress Configuration](#ha-proxy-ingress-configuration)
+  - [Development](#development)
+    - [Testing](#testing)
 
 (Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go))
 
@@ -69,7 +71,7 @@ There are several ways you might deploy docker-mailserver. The most common would
 
 ### 1. Install helm
 
-You need helm, obviously.   Instructions are [here](https://helm.sh/docs/intro/install/). 
+You need helm, obviously.   Instructions are [here](https://helm.sh/docs/intro/install/).
 
 ### 2. Install cert-manager
 

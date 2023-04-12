@@ -27,7 +27,7 @@ initContainer:
     privileged: false
 
 ## Optionally specify a runtimeClassName for the deployment
-runtimeClassName: 
+runtimeClassName:
 
 ## Optionally specify a priorityClassName for the deployment
 priorityClassName:
@@ -44,7 +44,7 @@ configMap:
   useExisting: false
 
 secret:
-  useExisting: false  
+  useExisting: false
 
 ## These values define how the certificate created by the chart is processed by cert-manager
 ## Ensure you've setup your ClusterIssuers (letsencrypt-staging and letsencrypt-prod) and DNS provider
@@ -54,9 +54,9 @@ ssl:
     kind: ClusterIssuer
   dnsname: example.com
 
-  # Set this to false to let the chart try to assemble a CR for you. This feature will be deprecated soon, and users will 
+  # Set this to false to let the chart try to assemble a CR for you. This feature will be deprecated soon, and users will
   # need to manage cert-manager outside of this chart (the dependencies involved make it fragile)
-  useExisting: true 
+  useExisting: true
   existingName: name-of-existing-secret
 
 ## Mount additional volumes into the container.  Useful for persistent logs or
@@ -74,7 +74,7 @@ demoMode:
 
 # If you choose _not_ to use haproxy, and you're not exposing your services with a load-balanced service
 # with an external traffic policy in "Local" mode, you risk having the source IP of incoming mail overwritten
-# with a local Kubernetes cluster IP, as part of the ingress routing of the connection. This, in turn, 
+# with a local Kubernetes cluster IP, as part of the ingress routing of the connection. This, in turn,
 # will cause all incoming to appear to be coming from an internal IP, causing SPF tests to fail.
 # Disable the following to bypass SPF tests altogether, to accommodate this scenario.
 # spfTestsDisabled will ignore all SPF-based spam tests, in the event that you cannot obtain valid source IP details on ingress emails
@@ -97,7 +97,7 @@ livenessTests:
     - "clamscan /tmp/docker-mailserver/TrustedHosts"
 
 pod:
-  # pod.dockermailserver section refers to the configuration of the docker-mailserver pod itself. 
+  # pod.dockermailserver section refers to the configuration of the docker-mailserver pod itself.
 
   # Note that the many environment variables which define the behaviour of docker-mailserver are configured here
   # See https://github.com/docker-mailserver/docker-mailserver/blob/master/ENVIRONMENT.md for details
@@ -114,9 +114,9 @@ pod:
     hostPID: false
 
     ## Update strategy - only really applicable for deployments with RWO PVs attached
-    ## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the 
-    ## PV, and the "incoming" pod can never start. Setting the strategy to "Recreate" (our default) will 
-    ## terminate the single previous pod, so that the new, incoming pod can attach to the PV    
+    ## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the
+    ## PV, and the "incoming" pod can never start. Setting the strategy to "Recreate" (our default) will
+    ## terminate the single previous pod, so that the new, incoming pod can attach to the PV
     strategy:
       # rollingUpdate:
       #   maxSurge: 1
@@ -154,7 +154,7 @@ pod:
     tls_level:
     spoof_protection:
     enable_srs: 0
-    permit_docker: 
+    permit_docker:
     virusmails_delete_delay:
     enable_postfix_virtual_transport:
     postfix_dagent:
@@ -164,7 +164,7 @@ pod:
     postmaster_address: "postmaster@domain.com"
     postscreen_action: "enforce"
     report_recipient: 0
-    report_sender: 
+    report_sender:
     report_interval: "daily"
     enable_spamassassin: 1
     sa_spam_to_inbox: 1
@@ -178,7 +178,7 @@ pod:
     enable_ldap:
     log_level: warn
     ldap_start_tls: # MUST BE "yes" or "no" - quoted strings
-    ldap_server_host: 
+    ldap_server_host:
     ldap_search_base:
     ldap_bind_dn:
     ldap_bind_pw:
@@ -203,7 +203,7 @@ pod:
     pflogsumm_trigger:
     pflogsumm_recipient:
     enable_saslauthd: 0
-    saslauthd_mechanisms: 
+    saslauthd_mechanisms:
     saslauthd_mech_options:
     saslauthd_ldap_server:
     saslauthd_ldap_ssl:
@@ -262,7 +262,7 @@ deployment:
 
   ## Add annotations to the deployment
   ## Useful for using something like stash to backup data (https://stash.run/docs/v0.9.0-rc.0/guides/latest/auto-backup/workload/)
-  annotations: {}  
+  annotations: {}
 
 ## More generally, a "request" can be thought of as "how much is this container expected to need usually". it should be
 ## possible to burst outside these constraints (during a high load operation). However, Kubernetes may kill the pod
@@ -313,7 +313,7 @@ monitoring:
     ## monitoring should be configured to only scrape services that have a value of "true"
     scrape: "true"
     ## monitoring should be configured to only probe services that have a value of "true"
-    probe: "false"    
+    probe: "false"
     ## Path on which metrics are exposed
     path: "/metrics"
     ## Port on which HTTP server is served
@@ -323,7 +323,7 @@ monitoring:
     ## monitoring shoudl be configured to only scrape pods that have a value of `true`
     scrape: "true"
     ## monitoring should be configured to only probe services that have a value of "true"
-    probe: "false"    
+    probe: "false"
     ## Path on which metrics are exposed
     path: "/metrics"
     ## Port on which HTTP server is served
@@ -344,20 +344,20 @@ rainloop:
     pullPolicy: "Always"
 
     ## Update strategy - only really applicable for deployments with RWO PVs attached
-    ## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the 
-    ## PV, and the "incoming" pod can never start. Setting the strategy to "Recreate" (our default) will 
-    ## terminate the single previous pod, so that the new, incoming pod can attach to the PV.    
+    ## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the
+    ## PV, and the "incoming" pod can never start. Setting the strategy to "Recreate" (our default) will
+    ## terminate the single previous pod, so that the new, incoming pod can attach to the PV.
     strategy:
       # rollingUpdate:
       #   maxSurge: 1
       #   maxUnavailable: 1
       type: "Recreate"
-          
+
   persistence:
     size: "1Gi"
     # Uncomment the backup.kubernetes.io/deltas annotation below if you use https://github.com/miracle2k/k8s-snapshots
     annotations: {}
-      # backup.kubernetes.io/deltas: PT1H P2D P30D P180D    
+      # backup.kubernetes.io/deltas: PT1H P2D P30D P180D
   service:
     port: 80
   container:
@@ -383,15 +383,15 @@ haproxy:
     tcp:
       25: "default/docker-mailserver:25::PROXY-V1"
       110: "default/docker-mailserver:110::PROXY-V1"
-      143: "default/docker-mailserver:143::PROXY-V1"            
+      143: "default/docker-mailserver:143::PROXY-V1"
       465: "default/docker-mailserver:465"
       587: "default/docker-mailserver:587"
-      993: "default/docker-mailserver:993::PROXY-V1"  
-      995: "default/docker-mailserver:995::PROXY-V1"     
+      993: "default/docker-mailserver:993::PROXY-V1"
+      995: "default/docker-mailserver:995::PROXY-V1"
     service:
       externalTrafficPolicy: "Local"
     # Set to avoid CI error when running the generated manifest through kubeval (FIXME)
-    podAnnotations: 
+    podAnnotations:
       set-to-avoid-lint-errors-in: "docker-mailserver"
 
   defaultBackend:

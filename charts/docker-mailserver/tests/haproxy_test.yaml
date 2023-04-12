@@ -13,15 +13,15 @@ tests:
           pattern: haproxy
       - isNull:
           path: data.dovecot\.cf
-          
+
   - it: should create phonehome deployment if haproxy is enabled and set to external-auto mode
     set:
       poorMansK8sLb.enabled: true
     asserts:
       - hasDocuments:
           count: 1
-        template: deployment-poor-mans-k8s-lb.yaml          
+        template: deployment-poor-mans-k8s-lb.yaml
 
   - it: manifest should match snapshot
     asserts:
-      - matchSnapshot: {}    
+      - matchSnapshot: {}

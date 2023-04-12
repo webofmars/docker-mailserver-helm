@@ -61,32 +61,32 @@ Kubernetes automating the provisioning and mounting of storage is very handy whe
 
 1. Create the PersistentVolumeClaim
 ```bash
-$ cat <<EOT | kubectl create -f -		
----		
-apiVersion: v1		
-kind: PersistentVolumeClaim		
-metadata:		
-  name: test		
-spec:		
-  accessModes:		
-    - ReadWriteOnce		
-  resources:		
-    requests:		
-      storage: 2Gi		
-  selector:		
-    matchLabels:		
-      volume_name: test		
-EOT		
-```		
+$ cat <<EOT | kubectl create -f -
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      volume_name: test
+EOT
+```
 
-2. Create the directory, on a worker		
+2. Create the directory, on a worker
 
-```bash		
-# mkdir -m 1777 /NFS_MOUNT/test		
-```		
+```bash
+# mkdir -m 1777 /NFS_MOUNT/test
+```
 
-3. Install the chart		
+3. Install the chart
 
-```bash		
-$ helm install --name test --set persistence.existingClaim=test .		
+```bash
+$ helm install --name test --set persistence.existingClaim=test .
 ```
